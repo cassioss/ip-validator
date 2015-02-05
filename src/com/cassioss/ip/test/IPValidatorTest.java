@@ -10,38 +10,37 @@ public class IPValidatorTest {
 
     @Test
     public void testNullAndEmpty() {
-        String ip_null = null;
-        String ip_empty = "";
-        assertFalse(IPValidator.validateIP(ip_null));
-        assertFalse(IPValidator.validateIP(ip_empty));
+        String ipEmpty = "";
+        assertFalse(IPValidator.validateIP(null));
+        assertFalse(IPValidator.validateIP(ipEmpty));
     }
 
     @Test
-    public void testIFLocalhost() {
-        String ip_home = "127.0.0.1";
-        assertFalse(IPValidator.validateIP(ip_home));
+    public void testForLocalhost() {
+        String ipHome = "127.0.0.1";
+        assertFalse(IPValidator.validateIP(ipHome));
     }
 
     @Test
-    public void testIPsForValidCharacters() {
-        String ip_one = "1.#.4.6";
-        String ip_two = "1,.2.%6.7";
-        String ip_three = "A.B.C.D";
-        assertFalse(IPValidator.validateIP(ip_one));
-        assertFalse(IPValidator.validateIP(ip_two));
-        assertFalse(IPValidator.validateIP(ip_three));
+    public void testIPsForInvalidCharacters() {
+        String ipInvalid1 = "1.#.4.6";
+        String ipInvalid2 = "1,.2.%6.7";
+        String ipInvalid3 = "A.B.C.D";
+        assertFalse(IPValidator.validateIP(ipInvalid1));
+        assertFalse(IPValidator.validateIP(ipInvalid2));
+        assertFalse(IPValidator.validateIP(ipInvalid3));
     }
 
     @Test
-    public void testNotFourParts() {
-        String ip_one = "127001";
-        String ip_two = "127.001";
-        String ip_three = "127.0.01";
-        String ip_five = "200.200.200.200.200";
-        assertFalse(IPValidator.validateIP(ip_one));
-        assertFalse(IPValidator.validateIP(ip_two));
-        assertFalse(IPValidator.validateIP(ip_three));
-        assertFalse(IPValidator.validateIP(ip_five));
+    public void testIPsWithoutFourParts() {
+        String ipOnePart = "127001";
+        String ipTwoParts = "127.001";
+        String ipThreeParts = "127.0.01";
+        String ipFiveParts = "200.200.200.200.200";
+        assertFalse(IPValidator.validateIP(ipOnePart));
+        assertFalse(IPValidator.validateIP(ipTwoParts));
+        assertFalse(IPValidator.validateIP(ipThreeParts));
+        assertFalse(IPValidator.validateIP(ipFiveParts));
     }
 
     @Test
@@ -56,49 +55,49 @@ public class IPValidatorTest {
 
     @Test
     public void testZerosToTheLeft() {
-        String ip_1 = "0.0.00.0";
-        String ip_2 = "000.0.0.0";
-        String ip_3 = "0.0.0.01";
-        assertFalse(IPValidator.validateIP(ip_1));
-        assertFalse(IPValidator.validateIP(ip_2));
-        assertFalse(IPValidator.validateIP(ip_3));
+        String ipTwoZeros = "0.0.00.0";
+        String ipThreeZeros = "000.0.0.0";
+        String ipZeroBeforeOne = "0.0.0.01";
+        assertFalse(IPValidator.validateIP(ipTwoZeros));
+        assertFalse(IPValidator.validateIP(ipThreeZeros));
+        assertFalse(IPValidator.validateIP(ipZeroBeforeOne));
     }
 
     @Test
     public void testIPsOutOfBounds() {
-        String ip_1 = "0.0.0.1000";
-        String ip_2 = "0.1.2.256";
-        assertFalse(IPValidator.validateIP(ip_1));
-        assertFalse(IPValidator.validateIP(ip_2));
+        String ip1000 = "0.0.0.1000";
+        String ip256 = "0.1.2.256";
+        assertFalse(IPValidator.validateIP(ip1000));
+        assertFalse(IPValidator.validateIP(ip256));
     }
 
     @Test
     public void testForbiddenZones() {
-        String ip1 = "10.0.0.1";
-        String ip2 = "192.168.0.1";
-        String ip3 = "172.16.0.1";
-        String ip4 = "172.31.0.1";
-        assertFalse(IPValidator.validateIP(ip1));
-        assertFalse(IPValidator.validateIP(ip2));
-        assertFalse(IPValidator.validateIP(ip3));
-        assertFalse(IPValidator.validateIP(ip4));
+        String ip10 = "10.0.0.1";
+        String ip192 = "192.168.0.1";
+        String ip172Low = "172.16.0.1";
+        String ip172High = "172.31.0.1";
+        assertFalse(IPValidator.validateIP(ip10));
+        assertFalse(IPValidator.validateIP(ip192));
+        assertFalse(IPValidator.validateIP(ip172Low));
+        assertFalse(IPValidator.validateIP(ip172High));
     }
 
     @Test
     public void testValidIPs() {
-        String ip1 = "200.200.200.200";
-        String ip2 = "192.167.1.1";
-        String ip3 = "0.0.0.0";
-        String ip4 = "127.1.1.1";
-        String ip5 = "255.255.255.255";
-        String ip6 = "172.15.0.1";
-        String ip7 = "172.32.0.1";
-        assertTrue(IPValidator.validateIP(ip1));
-        assertTrue(IPValidator.validateIP(ip2));
-        assertTrue(IPValidator.validateIP(ip3));
-        assertTrue(IPValidator.validateIP(ip4));
-        assertTrue(IPValidator.validateIP(ip5));
-        assertTrue(IPValidator.validateIP(ip6));
-        assertTrue(IPValidator.validateIP(ip7));
+        String ipValid1 = "200.200.200.200";
+        String ipValid2 = "192.167.1.1";
+        String ipValid3 = "0.0.0.0";
+        String ipValid4 = "127.1.1.1";
+        String ipValid5 = "255.255.255.255";
+        String ipValid6 = "172.15.0.1";
+        String ipValid7 = "172.32.0.1";
+        assertTrue(IPValidator.validateIP(ipValid1));
+        assertTrue(IPValidator.validateIP(ipValid2));
+        assertTrue(IPValidator.validateIP(ipValid3));
+        assertTrue(IPValidator.validateIP(ipValid4));
+        assertTrue(IPValidator.validateIP(ipValid5));
+        assertTrue(IPValidator.validateIP(ipValid6));
+        assertTrue(IPValidator.validateIP(ipValid7));
     }
 }

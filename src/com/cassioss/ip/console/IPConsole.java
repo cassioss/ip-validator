@@ -1,40 +1,61 @@
 package com.cassioss.ip.console;
 
 /**
- * Created by Cassio dos Santos Sousa on 05/02/2015.
+ * The IPConsole class has a Main method that requests an IP and prints if it can be used for a Private Network
+ *
+ * @author Cassio dos Santos Sousa
+ * @version 1.0
+ * @see <a href="http://support.microsoft.com/kb/142863">Valid IP Addressing for a Private Network</a>*
+ * @since 2015-02-05
  */
+
+import com.cassioss.ip.validator.IPValidator;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import static com.cassioss.ip.validator.IPValidator.validateIP;
-
 public class IPConsole {
 
+    // Main method. Calls scanner to read IP
+
     public static void main(String[] args) throws IOException {
-        Scanner userInputScanner = new Scanner(System.in);
-        System.out.println("Enter your IP candidate and press Enter:");
-        String ipCandidate = userInputScanner.nextLine();
-        userInputScanner.close();
-        if (validateIP("127.0.0.1"))
-            System.out.println("Yes");
-        else
-            System.out.println("No");
+        beginConsole();
+        String ipCandidate = scanIP();
+        verifyIP(ipCandidate);
     }
 
-    private static void verifyIP(String ip) {
-        System.out.println(ip);
-        if (validateIP(ip))
-            System.out.println("Yes");
-        else
-            System.out.println("No");
+    // Prints initial message
+
+    private static void beginConsole() {
+        System.out.println("Enter your IP candidate and press Enter:");
     }
+
+    // Scans new line for an IP address
+
+    private static String scanIP() {
+        Scanner scanner = new Scanner(System.in);
+        String ip = scanner.nextLine();
+        scanner.close();
+        return ip;
+    }
+
+    // Verifies IP by using IPValidator methods
+
+    private static void verifyIP(String ipCandidate) {
+        IPValidator validator = new IPValidator();
+        if (IPValidator.validateIP(ipCandidate))
+            ipIsValid();
+        else
+            ipHasError(validator.getIpError());
+    }
+
+    // Prints message when IP is valid. If there is an error, prints the error
 
     private static void ipIsValid() {
-        System.out.println("This ip is valid.");
+        System.out.println("This IP can be used for a private network.");
     }
 
-    private static void showError(String error) {
-        System.out.println("This IP is not valid. " + error);
+    private static void ipHasError(String error) {
+        System.out.println("This IP cannot be used for a private network. " + error);
     }
 }
