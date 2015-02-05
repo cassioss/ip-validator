@@ -74,12 +74,14 @@ public class IPValidatorTest {
 
     @Test
     public void testForbiddenZones() {
-        String ip_1 = "172.0.0.1";
-        String ip_2 = "10.0.0.1";
-        String ip_3 = "192.168.0.1";
-        assertFalse(IPValidator.validateIP(ip_1));
-        assertFalse(IPValidator.validateIP(ip_2));
-        assertFalse(IPValidator.validateIP(ip_3));
+        String ip1 = "10.0.0.1";
+        String ip2 = "192.168.0.1";
+        String ip3 = "172.16.0.1";
+        String ip4 = "172.31.0.1";
+        assertFalse(IPValidator.validateIP(ip1));
+        assertFalse(IPValidator.validateIP(ip2));
+        assertFalse(IPValidator.validateIP(ip3));
+        assertFalse(IPValidator.validateIP(ip4));
     }
 
     @Test
@@ -89,10 +91,14 @@ public class IPValidatorTest {
         String ip3 = "0.0.0.0";
         String ip4 = "127.1.1.1";
         String ip5 = "255.255.255.255";
+        String ip6 = "172.15.0.1";
+        String ip7 = "172.32.0.1";
         assertTrue(IPValidator.validateIP(ip1));
         assertTrue(IPValidator.validateIP(ip2));
         assertTrue(IPValidator.validateIP(ip3));
         assertTrue(IPValidator.validateIP(ip4));
         assertTrue(IPValidator.validateIP(ip5));
+        assertTrue(IPValidator.validateIP(ip6));
+        assertTrue(IPValidator.validateIP(ip7));
     }
 }

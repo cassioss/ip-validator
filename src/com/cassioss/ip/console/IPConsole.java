@@ -15,7 +15,7 @@ public class IPConsole {
         Scanner userInputScanner = new Scanner(System.in);
         System.out.println("Enter your IP candidate and press Enter:");
         String ipCandidate = userInputScanner.nextLine();
-        System.out.println(ipCandidate + ipCandidate + ipCandidate);
+        userInputScanner.close();
         if (validateIP("127.0.0.1"))
             System.out.println("Yes");
         else

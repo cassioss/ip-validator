@@ -4,10 +4,32 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- * Created by Cassio dos Santos Sousa on 05/02/2015.
+ * The IPValidator class has methods to evaluate and parse a String to verify if it is a valid IP address for a private
+ * network. A valid IP address has the form "NNN.NNN.NNN.NNN", where each NNN is an integer from 0 to 255. Reserved
+ * value ranges, which will not be accepted by the program, are:
+ * <p/>
+ * 10.0.0.0 - 10.255.255.255
+ * <p/>
+ * 172.16.0.0 - 172.31.255.255
+ * <p/>
+ * 192.168.0.0 - 192.168.255.255
+ * <p/>
+ * Since 127.0.0.1 is the home address, it will not be accepted either.
+ *
+ * @author Cassio dos Santos Sousa
+ * @version 1.0
+ * @see <a href="http://support.microsoft.com/kb/142863">Valid IP Addressing for a Private Network</a>*
+ * @since 2015-02-05
  */
 
 public class IPValidator {
+
+    /**
+     * The validateIP method returns true if the is valid for a private network.
+     *
+     * @return true if ip is a valid IP for a private network
+     * @value ip - a string to be verified
+     */
 
     public static boolean validateIP(String ip) {
 
@@ -17,37 +39,35 @@ public class IPValidator {
         if (isHomeAddress(ip))
             return false;
 
-		/* First, we will divide our IP by its characters */
-
-        String[] division_by_characters = divided_by_character(ip);
+        String[] ipDividedByCharacters = divideIPByCharacter(ip);
 
 		/* Blocks if there is a non-valid character */
 
-        if (not_number_or_dot(division_by_characters))
+        if (hasNoNumbersOrDots(ipDividedByCharacters))
             return false;
 
 		/* From now on, the string is divided by its dots, if any */
 
-        String[] ip_divided = divided_by_dots(ip);
+        String[] ipDividedByDots = divideIPByDots(ip);
 
-		/* Blocks ip_divided if its length is not 4 */
+		/* Blocks ipDividedByDots if its length is not 4 */
 
-        if (notFourParts(ip_divided))
+        if (notFourParts(ipDividedByDots))
             return false;
 
 		/* Blocks if any of the four strings is null, like in 1..1.1 */
 
-        if (emptyDivision(ip_divided))
+        if (emptyDivision(ipDividedByDots))
             return false;
 
 		/* Blocks if there are any unnecessary zeros to the left */
 
-        if (zerosToTheLeft(ip_divided))
+        if (zerosToTheLeft(ipDividedByDots))
             return false;
 
 		/* From now on, we will use the IP as an array of integers */
 
-        Integer[] ip_integer = turn_to_Integer(ip_divided);
+        Integer[] ip_integer = turn_to_Integer(ipDividedByDots);
 
 		/* Blocks if any of the numbers are bigger than 255 */
 
@@ -78,7 +98,7 @@ public class IPValidator {
         return ip == "";
     }
 
-	/* Verifies if the string is home, 127.0.0.1 */
+	/* Verifies if the string is the home address, 127.0.0.1 */
 
     private static boolean isHomeAddress(String ip) {
         return ip == "127.0.0.1";
@@ -86,26 +106,24 @@ public class IPValidator {
 
 	/* Divides a string by its characters */
 
-    private static String[] divided_by_character(String ip) {
-        char[] by_char = ip.toCharArray();
-        String[] by_String = new String[by_char.length];
+    private static String[] divideIPByCharacter(String ip) {
+        char[] ipCharArray = ip.toCharArray();
+        String[] ipCharToString = new String[ipCharArray.length];
 
-        for (int i = 0; i < by_char.length; i++)
-            by_String[i] = Character.toString(by_char[i]);
+        for (int i = 0; i < ipCharArray.length; i++)
+            ipCharToString[i] = Character.toString(ipCharArray[i]);
 
-        return by_String;
+        return ipCharToString;
     }
 
 	/* Verifies if a character of the string is not number or dot */
 
-    private static boolean not_number_or_dot(String[] division_by_characters) {
-        String[] valid_chars = {".", "0", "1", "2", "3", "4", "5", "6", "7",
-                "8", "9"};
-        HashSet<String> valid_set = new HashSet<String>(
-                Arrays.asList(valid_chars));
+    private static boolean hasNoNumbersOrDots(String[] ipDividedByCharacters) {
+        String[] validCharacters = {".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        HashSet<String> validSet = new HashSet<String>(Arrays.asList(validCharacters));
 
-        for (int i = 0; i < division_by_characters.length; i++) {
-            if (!valid_set.contains(division_by_characters[i]))
+        for (int i = 0; i < ipDividedByCharacters.length; i++) {
+            if (!validSet.contains(ipDividedByCharacters[i]))
                 return true;
         }
 
@@ -114,7 +132,7 @@ public class IPValidator {
 
 	/* Divides a string by its dots */
 
-    private static String[] divided_by_dots(String ip) {
+    private static String[] divideIPByDots(String ip) {
         return ip.split("\\.");
     }
 
@@ -170,7 +188,6 @@ public class IPValidator {
         int first = ip_integer[0];
         int second = ip_integer[1];
 
-        return (first == 172) || (first == 10)
-                || (first == 192 && second == 168);
+        return (first == 172 && (second >= 16 && second <= 31)) || (first == 10) || (first == 192 && second == 168);
     }
 }
