@@ -45,12 +45,12 @@ public class IPValidatorTest {
 
     @Test
     public void testEmptySubstrings() {
-        String ip_1 = "..1.1";
-        String ip_2 = "1.1.1..";
-        String ip_3 = "...1";
-        assertFalse(IPValidator.validateIP(ip_1));
-        assertFalse(IPValidator.validateIP(ip_2));
-        assertFalse(IPValidator.validateIP(ip_3));
+        String ipBeginEmptySection = "..1.1";
+        String ipEndEmptySection = "1.1.1..";
+        String ipThreeEmptySections = "...1";
+        assertFalse(IPValidator.validateIP(ipBeginEmptySection));
+        assertFalse(IPValidator.validateIP(ipEndEmptySection));
+        assertFalse(IPValidator.validateIP(ipThreeEmptySections));
     }
 
     @Test
