@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- * Created by Cassio on 05/02/2015.
+ * Created by Cassio dos Santos Sousa on 05/02/2015.
  */
 
 public class IPvalidator {
@@ -69,14 +69,14 @@ public class IPvalidator {
 
 	/* Verifies if a String is null */
 
-    private static boolean ip_isNull(String ip) {
+    private static boolean IPisNull(String ip) {
         return ip == null;
     }
 
 	/* Verifies if the string, if not null, is empty */
 
     private static boolean ip_isEmpty(String ip) {
-        if (ip_isNull(ip))
+        if (IPisNull(ip))
             return true;
         return ip == "";
     }
