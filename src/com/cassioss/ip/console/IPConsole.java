@@ -1,5 +1,10 @@
 package com.cassioss.ip.console;
 
+import com.cassioss.ip.validator.IPValidator;
+
+import java.io.IOException;
+import java.util.Scanner;
+
 /**
  * The IPConsole class has a Main method that requests an IP and prints if it can be used for a Private Network
  *
@@ -8,11 +13,6 @@ package com.cassioss.ip.console;
  * @see <a href="http://support.microsoft.com/kb/142863">Valid IP Addressing for a Private Network</a>*
  * @since 2015-02-05
  */
-
-import com.cassioss.ip.validator.IPValidator;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 public class IPConsole {
 
