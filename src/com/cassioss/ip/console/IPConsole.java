@@ -4,19 +4,22 @@ package com.cassioss.ip.console;
  * Created by Cassio dos Santos Sousa on 05/02/2015.
  */
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import static com.cassioss.ip.validator.IPValidator.validateIP;
 
 public class IPConsole {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+        Scanner userInputScanner = new Scanner(System.in);
         System.out.println("Enter your IP candidate and press Enter:");
-        String ipCandidate = buffer.readLine();
-        verifyIP(ipCandidate);
+        String ipCandidate = userInputScanner.nextLine();
+        System.out.println(ipCandidate + ipCandidate + ipCandidate);
+        if (validateIP("127.0.0.1"))
+            System.out.println("Yes");
+        else
+            System.out.println("No");
     }
 
     private static void verifyIP(String ip) {

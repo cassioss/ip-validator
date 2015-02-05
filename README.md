@@ -11,11 +11,10 @@ The classes and methods were made in IntelliJ 14.0.3, so the .gitignore file was
 The files included in the source folder are:
 
 - console
-  - IPConsole: main method that runs an IP verifier in the console. Returns errors if entry is not valid;
+  - IPConsole: main method that runs an IP verifier in the console. Returns errors if entry is not valid.
 
 - validator
-  - IPValidator: includes main method to verify IP strings;
-  - Constants: all strings written for error handling are there.
+  - IPValidator: includes main method to verify IP strings.
 
 - test
   - IPValidatorTest: JUnit 4 Test Case for IPValidator.

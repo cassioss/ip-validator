@@ -9,12 +9,14 @@ import java.util.HashSet;
 
 public class IPValidator {
 
-    private static String ipError;
+    /*private static String ip;
 
-    public static final String IP_IS_EMPTY = "This IP is null or empty";
-    public static final String IP_IS_HOME = "This IP is the home address: 127.0.0.1";
+       private static String ipError;
 
-    public IPValidator() {
+            public static final String IP_IS_EMPTY = "This IP is null or empty";
+            public static final String IP_IS_HOME = "This IP is the home address: 127.0.0.1";
+        */
+/*    public IPValidator() {
         setError("");
     }
 
@@ -25,18 +27,14 @@ public class IPValidator {
     private static void setError(String errorDetailed) {
         ipError = errorDetailed;
     }
-
+*/
     public static boolean validateIP(String ip) {
 
-        if (isEmpty(ip)) {
-            setError(IP_IS_EMPTY);
+        if (isEmpty(ip))
             return false;
-        }
 
-        if (isHomeAddress(ip)) {
-            setError(IP_IS_HOME);
+        if (isHomeAddress(ip))
             return false;
-        }
 
 		/* First, we will divide our IP by its characters */
 
