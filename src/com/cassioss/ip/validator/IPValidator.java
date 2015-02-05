@@ -13,6 +13,10 @@ public class IPValidator {
 
     private static String ipError;
 
+    public IPValidator() {
+        setError("");
+    }
+
     public String getError() {
         return ipError;
     }

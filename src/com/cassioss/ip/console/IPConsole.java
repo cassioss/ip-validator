@@ -6,21 +6,32 @@ package com.cassioss.ip.console;
 
 import com.cassioss.ip.validator.IPValidator;
 
-import java.io.Console;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class IPConsole {
 
-    public static void main(String[] args) {
-        Console console = System.console();
-        console.printf("Enter your IP and press Enter: ");
-        String ip = console.readLine();
-        if (IPValidator.validateIP(ip))
-            System.out.println("This IP is valid");
-        else
-            System.out.print("This IP is not valid");
+    public static void main(String[] args) throws IOException {
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Enter your IP candidate and press Enter: ");
+        String ipCandidate = buffer.readLine();
+        verifyIP(ipCandidate);
     }
 
-    private void showError(String error){
+    private static void verifyIP(String ip) {
+        IPValidator validator = null;
+        if (validator.validateIP(ip))
+            ipIsValid();
+        else
+            showError(validator.getError());
+    }
 
+    private static void ipIsValid() {
+        System.out.println("This ip is valid.");
+    }
+
+    private static void showError(String error) {
+        System.out.println("This IP is not valid. " + error);
     }
 }
