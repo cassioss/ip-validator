@@ -9,25 +9,6 @@ import java.util.HashSet;
 
 public class IPValidator {
 
-    /*private static String ip;
-
-       private static String ipError;
-
-            public static final String IP_IS_EMPTY = "This IP is null or empty";
-            public static final String IP_IS_HOME = "This IP is the home address: 127.0.0.1";
-        */
-/*    public IPValidator() {
-        setError("");
-    }
-
-    public String getError() {
-        return ipError;
-    }
-
-    private static void setError(String errorDetailed) {
-        ipError = errorDetailed;
-    }
-*/
     public static boolean validateIP(String ip) {
 
         if (isEmpty(ip))
