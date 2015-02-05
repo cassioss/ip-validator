@@ -3,8 +3,6 @@ package com.cassioss.ip.validator;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static com.cassioss.ip.validator.Constants.*;
-
 /**
  * Created by Cassio dos Santos Sousa on 05/02/2015.
  */
@@ -12,6 +10,9 @@ import static com.cassioss.ip.validator.Constants.*;
 public class IPValidator {
 
     private static String ipError;
+
+    public static final String IP_IS_EMPTY = "This IP is null or empty";
+    public static final String IP_IS_HOME = "This IP is the home address: 127.0.0.1";
 
     public IPValidator() {
         setError("");
