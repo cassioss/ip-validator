@@ -39,7 +39,7 @@ public class IPValidator {
         if (isHomeAddress(ip))
             return false;
 
-        String[] ipDividedByCharacters = divideIPByCharacter(ip);
+        String[] ipDividedByCharacters = divideByCharacters(ip);
 
 		/* Blocks if there is a non-valid character */
 
@@ -48,7 +48,7 @@ public class IPValidator {
 
 		/* From now on, the string is divided by its dots, if any */
 
-        String[] ipDividedByDots = divideIPByDots(ip);
+        String[] ipDividedByDots = divideByDots(ip);
 
 		/* Blocks ipDividedByDots if its length is not 4 */
 
@@ -67,16 +67,16 @@ public class IPValidator {
 
 		/* From now on, we will use the IP as an array of integers */
 
-        Integer[] ip_integer = turn_to_Integer(ipDividedByDots);
+        Integer[] ipOfIntegers = turnToInteger(ipDividedByDots);
 
 		/* Blocks if any of the numbers are bigger than 255 */
 
-        if (number_out_of_bounds(ip_integer))
+        if (numberOutOfBounds(ipOfIntegers))
             return false;
 
 		/* Blocks if the IP is in a forbidden zone */
 
-        if (numbers_in_forbidden_zone(ip_integer))
+        if (numbersInForbiddenZones(ipOfIntegers))
             return false;
 
 		/* The IP is OK if otherwise */
@@ -93,20 +93,18 @@ public class IPValidator {
 	/* Verifies if the string, if not null, is empty */
 
     private static boolean isEmpty(String ip) {
-        if (ipIsNull(ip))
-            return true;
-        return ip == "";
+        return ipIsNull(ip) || ip.equals("");
     }
 
 	/* Verifies if the string is the home address, 127.0.0.1 */
 
     private static boolean isHomeAddress(String ip) {
-        return ip == "127.0.0.1";
+        return ip.equals("127.0.0.1");
     }
 
 	/* Divides a string by its characters */
 
-    private static String[] divideIPByCharacter(String ip) {
+    private static String[] divideByCharacters(String ip) {
         char[] ipCharArray = ip.toCharArray();
         String[] ipCharToString = new String[ipCharArray.length];
 
@@ -122,31 +120,30 @@ public class IPValidator {
         String[] validCharacters = {".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
         HashSet<String> validSet = new HashSet<String>(Arrays.asList(validCharacters));
 
-        for (int i = 0; i < ipDividedByCharacters.length; i++) {
-            if (!validSet.contains(ipDividedByCharacters[i]))
+        for (String character : ipDividedByCharacters)
+            if (!validSet.contains(character))
                 return true;
-        }
 
         return false;
     }
 
 	/* Divides a string by its dots */
 
-    private static String[] divideIPByDots(String ip) {
+    private static String[] divideByDots(String ip) {
         return ip.split("\\.");
     }
 
 	/* Verifies if a divided string does not have four parts */
 
-    private static boolean notFourParts(String[] divided) {
-        return divided.length != 4;
+    private static boolean notFourParts(String[] ipDividedByDots) {
+        return ipDividedByDots.length != 4;
     }
 
 	/* Verifies if a divided string has an empty part */
 
-    private static boolean emptyDivision(String[] ip_divided) {
-        for (int i = 0; i < ip_divided.length; i++)
-            if (ip_divided[i].equals(""))
+    private static boolean emptyDivision(String[] ipDividedByDots) {
+        for (String ipSection : ipDividedByDots)
+            if (ipSection.equals(""))
                 return true;
 
         return false;
@@ -154,9 +151,9 @@ public class IPValidator {
 
 	/* Verifies if any part of the divided string has zeros to the left */
 
-    private static boolean zerosToTheLeft(String[] ip_divided) {
-        for (int i = 0; i < ip_divided.length; i++)
-            if (!ip_divided[i].equals("0") && ip_divided[i].startsWith("0"))
+    private static boolean zerosToTheLeft(String[] ipDividedByDots) {
+        for (String ipSection : ipDividedByDots)
+            if (!ipSection.equals("0") && ipSection.startsWith("0"))
                 return true;
 
         return false;
@@ -164,19 +161,19 @@ public class IPValidator {
 
 	/* Turns an array of Strings into an array of Integers */
 
-    private static Integer[] turn_to_Integer(String[] ip_divided) {
-        Integer[] ip_integer = new Integer[ip_divided.length];
+    private static Integer[] turnToInteger(String[] ipDividedByDots) {
+        Integer[] ipOfIntegers = new Integer[ipDividedByDots.length];
 
-        for (int i = 0; i < ip_divided.length; i++)
-            ip_integer[i] = Integer.parseInt(ip_divided[i]);
-        return ip_integer;
+        for (int i = 0; i < ipDividedByDots.length; i++)
+            ipOfIntegers[i] = Integer.parseInt(ipDividedByDots[i]);
+        return ipOfIntegers;
     }
 
 	/* Verifies if the numbers of an IP are out of bounds */
 
-    private static boolean number_out_of_bounds(Integer[] ip_integer) {
-        for (int i = 0; i < ip_integer.length; i++)
-            if (ip_integer[i] > 255)
+    private static boolean numberOutOfBounds(Integer[] ipOfIntegers) {
+        for (Integer number : ipOfIntegers)
+            if (number > 255)
                 return true;
 
         return false;
@@ -184,10 +181,11 @@ public class IPValidator {
 
 	/* Verifies if the numbers of an IP are in a forbidden zone */
 
-    private static boolean numbers_in_forbidden_zone(Integer[] ip_integer) {
-        int first = ip_integer[0];
-        int second = ip_integer[1];
+    private static boolean numbersInForbiddenZones(Integer[] ipOfIntegers) {
+        int firstNumber = ipOfIntegers[0];
+        int secondNumber = ipOfIntegers[1];
 
-        return (first == 172 && (second >= 16 && second <= 31)) || (first == 10) || (first == 192 && second == 168);
+        return (firstNumber == 172 && (secondNumber >= 16 && secondNumber <= 31)) ||
+                (firstNumber == 10) || (firstNumber == 192 && secondNumber == 168);
     }
 }
