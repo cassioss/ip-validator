@@ -21,11 +21,11 @@ The classes and methods were made in IntelliJ 14.0.3, so the .gitignore file was
 
 The files included in the source folder are:
 
-- com.cassio.ip.console
+- com.cassioss.ip.console
   - IPConsole: main method that runs an IP verifier in the console. Returns errors if entry is not valid.
 
-- com.cassio.ip.validator
+- com.cassioss.ip.validator
   - IPValidator: includes main method to verify IP strings.
 
-- com.cassio.ip.test
+- com.cassioss.ip.test
   - IPValidatorTest: JUnit 4 Test Case for IPValidator.
