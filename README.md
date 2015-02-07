@@ -1,7 +1,18 @@
 IP Validator
 ============
 
-This is a validator made in Java to verify if a String is a valid IP. It was made during my Softare Engineering Fundamentals (CES-28) course and revised for my Programming Studio (CS242) course. JUnit 4 tests included.
+This is a validator made in Java to verify if a String is a valid IP address for a Private Network. It was made during my Softare Engineering Fundamentals (CES-28) course and revised for my Programming Studio (CS242) course. JUnit 4 tests included.
+
+Rules
+=====
+
+According to http://support.microsoft.com/kb/142863, a valid IP address has the form NNN.NNN.NNN.NNN, where each NNN is a number from 0 to 255. However, some blocks of numbers are reserved, and cannot be accepted by the program:
+
+- 10.0.0.0 - 10.255.255.255
+- 192.168.0.0 - 192.168.255.255
+- 172.16.0.0 - 172.31.255.255
+
+Also, as 127.0.0.1 is the home address, it cannot be accepted as well.
 
 Organization
 ============
@@ -10,11 +21,11 @@ The classes and methods were made in IntelliJ 14.0.3, so the .gitignore file was
 
 The files included in the source folder are:
 
-- console
+- com.cassio.ip.console
   - IPConsole: main method that runs an IP verifier in the console. Returns errors if entry is not valid.
 
-- validator
+- com.cassio.ip.validator
   - IPValidator: includes main method to verify IP strings.
 
-- test
+- com.cassio.ip.test
   - IPValidatorTest: JUnit 4 Test Case for IPValidator.
